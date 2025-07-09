@@ -221,7 +221,16 @@ const Seaweed: React.FC<{
 
 export const CoralReefBackground: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [timeOfDay, setTimeOfDay] = useState<TimeOfDay | null>(null);
+  const [timeOfDay, setTimeOfDay] = useState<TimeOfDay>({
+    period: 'afternoon',
+    colors: {
+      primary: 'from-blue-600 via-cyan-500 to-teal-400',
+      secondary: 'from-blue-500/40 via-cyan-400/30 to-teal-300/30',
+      accent: 'from-cyan-300/25 via-teal-300/20 to-blue-200/15',
+      water: 'from-cyan-200/20 via-teal-100/15 to-transparent'
+    },
+    elements: []
+  });
 
   useEffect(() => {
     const updateTime = () => {
@@ -740,8 +749,6 @@ export const CoralReefBackground: React.FC = () => {
       ...timeConfigs[period]
     });
   }, [currentTime]);
-
-  if (!timeOfDay) return null;
 
   return (
     <div className="absolute inset-0 overflow-hidden transition-all duration-[3000ms] ease-in-out">

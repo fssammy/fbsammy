@@ -13,7 +13,15 @@ interface TimeOfDay {
 
 export const DynamicBackground: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [timeOfDay, setTimeOfDay] = useState<TimeOfDay | null>(null);
+  const [timeOfDay, setTimeOfDay] = useState<TimeOfDay>({
+    period: 'evening',
+    colors: {
+      primary: 'from-orange-600 via-red-500 to-purple-700',
+      secondary: 'from-orange-500/30 via-red-400/20 to-purple-600/30',
+      accent: 'from-red-400/20 via-orange-300/15 to-purple-400/20'
+    },
+    elements: []
+  });
 
   useEffect(() => {
     const updateTime = () => {
@@ -384,8 +392,6 @@ export const DynamicBackground: React.FC = () => {
       ...timeConfigs[period]
     });
   }, [currentTime]);
-
-  if (!timeOfDay) return null;
 
   return (
     <div className="absolute inset-0 overflow-hidden transition-all duration-[2000ms] ease-in-out">
