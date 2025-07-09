@@ -25,12 +25,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('july12th-theme') as Theme;
-    // Always start with default theme, but respect saved preference after initial load
-    if (savedTheme && savedTheme === 'coral-reef') {
-      // Small delay to ensure smooth initial load
-      setTimeout(() => {
-        setThemeState(savedTheme);
-      }, 100);
+    // Only load saved theme if it exists, otherwise stay with default
+    if (savedTheme) {
+      setThemeState(savedTheme);
     }
   }, []);
 
@@ -39,16 +36,16 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     
     setIsTransitioning(true);
     
-    // Add a delay to allow for transition effects
+    // Faster, smoother transition
     setTimeout(() => {
       setThemeState(newTheme);
       localStorage.setItem('july12th-theme', newTheme);
       
-      // End transition after theme change
+      // Much shorter transition end time
       setTimeout(() => {
         setIsTransitioning(false);
-      }, 1200); // Reduced for smoother feel
-    }, 400); // Slightly longer for better effect buildup
+      }, 600); // Much faster
+    }, 200); // Much faster start
   };
 
   const toggleTheme = () => {
