@@ -36,16 +36,16 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     
     setIsTransitioning(true);
     
-    // Faster, smoother transition
+    // Ultra fast, smooth transition
     setTimeout(() => {
       setThemeState(newTheme);
       localStorage.setItem('july12th-theme', newTheme);
       
-      // Much shorter transition end time
+      // Very short transition end time
       setTimeout(() => {
         setIsTransitioning(false);
-      }, 600); // Much faster
-    }, 200); // Much faster start
+      }, 400); // Ultra fast
+    }, 100); // Instant start
   };
 
   const toggleTheme = () => {
