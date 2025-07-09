@@ -11,7 +11,6 @@ import { HugGenerator } from './components/HugGenerator';
 import { PolaroidOfTheDay } from './components/PolaroidOfTheDay';
 import { SpotifyPlayer } from './components/SpotifyPlayer';
 import { DynamicBackground } from './components/DynamicBackground';
-import { HyperdriveTimeViewer } from './components/HyperdriveTimeViewer';
 import { Calendar, Clock } from 'lucide-react';
 
 function AppContent() {
@@ -174,15 +173,6 @@ function AppContent() {
 
           {/* Virtual Cake Builder */}
           <VirtualCakeBuilder isCountdownExpired={isExpired} />
-
-          {/* Hyperdrive Time Viewer */}
-          <HyperdriveTimeViewer 
-            days={days}
-            hours={hours}
-            minutes={minutes}
-            seconds={seconds}
-            isExpired={isExpired}
-          />
 
           {/* Countdown Display */}
           {!isExpired ? (
