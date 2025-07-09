@@ -394,7 +394,7 @@ export const DynamicBackground: React.FC = () => {
   }, [currentTime]);
 
   return (
-    <div className="absolute inset-0 overflow-hidden transition-all duration-[2000ms] ease-in-out">
+    <div className="absolute inset-0 overflow-hidden">
       {/* Primary Background Gradient */}
       <div className={`absolute inset-0 bg-gradient-to-br ${timeOfDay.colors.primary} transition-all duration-[2000ms] ease-in-out`} />
       

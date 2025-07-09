@@ -174,7 +174,7 @@ function AppContent() {
       <PolaroidOfTheDay isVisible={showPolaroid} onClose={handlePolaroidClose} />
 
       {/* Dynamic Time-Based Background */}
-      <div className={`transition-all duration-1000 ${isTransitioning ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}>
+      <div className={`absolute inset-0 transition-all duration-1000 ${isTransitioning ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}>
         {theme === 'coral-reef' ? <CoralReefBackground /> : <DynamicBackground />}
       </div>
 
