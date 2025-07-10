@@ -1,5 +1,5 @@
 export const dailyQuotes = [
-  "Every moment brings you closer to something extraordinary - trust the journey.",
+  "You've made my laugh louder, my smile brighter, and my heart lighter—thank you for being you.",
   "You're not just my sunshine—you're the whole sky after the storm.",
   "When you're around, the world feels gentler—like even the chaos knows to calm down.",
   "You light up every room you walk into – never forget your glow was made to shine, not shrink.",
