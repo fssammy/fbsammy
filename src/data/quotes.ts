@@ -1,7 +1,7 @@
 export const dailyQuotes = [
   "You've made my laugh louder, my smile brighter, and my heart lighter—thank you for being you.",
-  "You're not just my sunshine—you're the whole sky after the storm.",
-  "When you're around, the world feels gentler—like even the chaos knows to calm down.",
+  "If I had a flower for every time you made me smile, I'd have a whole garden by now. 🌼",
+  "You're not just my best friend — you're the calm in my chaos, the hug in my heartbreak, and the giggle in my soul. Life is simply better with you in it. 💖",
   "You light up every room you walk into – never forget your glow was made to shine, not shrink.",
   "No mountain is too high when you've got fire in your heart and a sister in your corner.",
   "Life may throw storms, but with you by my side, every rainbow feels closer.",
