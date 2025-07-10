@@ -23,13 +23,6 @@ export const dailyQuotes = [
 ];
 
 export const getDailyQuote = (): string => {
-  // Get the current date and calculate days since a reference point
-  const now = new Date();
-  const referenceDate = new Date('2025-01-01'); // Reference date for consistent rotation
-  const daysDifference = Math.floor((now.getTime() - referenceDate.getTime()) / (1000 * 60 * 60 * 24));
-  
-  // Use modulo to cycle through quotes, starting with index 0 (rainbow quote first)
-  const quoteIndex = daysDifference % dailyQuotes.length;
-  
-  return dailyQuotes[quoteIndex];
+  // Always return the first quote: "You've made my laugh louder, my smile brighter, and my heart lighter—thank you for being you."
+  return dailyQuotes[0];
 };
