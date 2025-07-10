@@ -9,7 +9,6 @@ import { DailyQuote } from './components/DailyQuote';
 import { VirtualCakeBuilder } from './components/VirtualCakeBuilder';
 import { HugGenerator } from './components/HugGenerator';
 import { PolaroidOfTheDay } from './components/PolaroidOfTheDay';
-import { BirthdayProphecyScroll } from './components/BirthdayProphecyScroll';
 import { SpotifyPlayer } from './components/SpotifyPlayer';
 import { DynamicBackground } from './components/DynamicBackground';
 import { Calendar, Clock } from 'lucide-react';
@@ -19,6 +18,7 @@ function AppContent() {
   // Target date: July 12, 2025, 00:00:00 IST
   const targetDate = new Date('2025-07-12T00:00:00+05:30');
   const { days, hours, minutes, seconds, isExpired } = useCountdown(targetDate);
+  const [showPolaroid, setShowPolaroid] = React.useState(false);
 
   const countdownItems = [
     { value: days, label: 'Days' },
@@ -27,11 +27,21 @@ function AppContent() {
     { value: seconds, label: 'Seconds' },
   ];
 
+  // Show polaroid after a delay when component mounts
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPolaroid(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handlePolaroidClose = () => {
+    setShowPolaroid(false);
+  };
+
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Birthday Prophecy Scroll - appears first */}
-      <BirthdayProphecyScroll />
-
       {/* Theme Transition Overlay */}
       {isTransitioning && (
         <div className="fixed inset-0 z-50 pointer-events-none overflow-hidden">
@@ -112,6 +122,8 @@ function AppContent() {
           }`} />
         </div>
       )}
+      {/* Polaroid of the Day */}
+      <PolaroidOfTheDay isVisible={showPolaroid} onClose={handlePolaroidClose} />
 
       {/* Dynamic Time-Based Background */}
       <div className={`absolute inset-0 transition-all duration-300 ease-out ${isTransitioning ? 'opacity-30' : 'opacity-100'}`}>
