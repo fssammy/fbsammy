@@ -1,11 +1,11 @@
 export const dailyQuotes = [
-  "You don't chase rainbows—you carry one with you, lighting up everything in your path.",
+  "Today is your day to shine brighter than all the stars combined.",
   "You're not just my sunshine—you're the whole sky after the storm.",
   "When you're around, the world feels gentler—like even the chaos knows to calm down.",
   "You light up every room you walk into – never forget your glow was made to shine, not shrink.",
   "No mountain is too high when you've got fire in your heart and a sister in your corner.",
   "Life may throw storms, but with you by my side, every rainbow feels closer.",
-  "You don't chase rainbows—you carry one with you, lighting up everything in your path.",
+  "Your dreams are calling, and today is the perfect day to answer.",
   "Even on your hardest days, I hope you remember how deeply loved and wildly capable you are.",
   "Chin up, crown on – queens like you don't quit, they rise.",
   "You were never meant to blend in – your sparkle is supposed to stand out.",
@@ -17,7 +17,9 @@ export const dailyQuotes = [
   "If your wings ever forget how to fly, I'll remind them what they're made for.",
   "You're like sunshine mixed with resilience – the rare kind of magic that never fades.",
   "You're doing better than you think. Be gentle with your soul, it's learning.",
-  "Through every twist and turn, never forget – you're never alone. You've got me, always."
+  "Through every twist and turn, never forget – you're never alone. You've got me, always.",
+  "Magic happens when you believe in yourself as much as I believe in you.",
+  "You're not just reaching for the stars – you're becoming one."
 ];
 
 export const getDailyQuote = (): string => {
