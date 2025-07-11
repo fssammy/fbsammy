@@ -86,6 +86,12 @@ export const VirtualCakeBuilder: React.FC<CakeBuilderProps> = ({ isCountdownExpi
     }
   }, [isCountdownExpired, isOpen]);
 
+  // Check if it's July 12th for special explosion
+  const isJuly12th = () => {
+    const today = new Date();
+    return today.getMonth() === 6 && today.getDate() === 12; // July is month 6 (0-indexed)
+  };
+
   const selectedBase = cakeBases.find(b => b.id === cake.base);
   const selectedFrosting = frostings.find(f => f.id === cake.frosting);
 
@@ -271,7 +277,7 @@ export const VirtualCakeBuilder: React.FC<CakeBuilderProps> = ({ isCountdownExpi
         )}
 
         {/* Explosion Effect */}
-        {isExploding && (
+        {isExploding && !isJuly12th() && (
           <div className="absolute inset-0 pointer-events-none">
             {Array.from({ length: 20 }).map((_, i) => (
               <div
@@ -303,6 +309,105 @@ export const VirtualCakeBuilder: React.FC<CakeBuilderProps> = ({ isCountdownExpi
                 <div className={`w-2 h-2 ${['bg-pink-400', 'bg-blue-400', 'bg-green-400', 'bg-yellow-400', 'bg-purple-400'][Math.floor(Math.random() * 5)]} rounded-full`}></div>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Special July 12th Wholesome Explosion */}
+        {isExploding && isJuly12th() && (
+          <div className="absolute inset-0 pointer-events-none">
+            {/* Heart explosion */}
+            {Array.from({ length: 15 }).map((_, i) => (
+              <div
+                key={`heart-${i}`}
+                className="absolute animate-bounce text-2xl"
+                style={{
+                  top: `${30 + Math.random() * 40}%`,
+                  left: `${30 + Math.random() * 40}%`,
+                  animationDelay: `${Math.random() * 0.8}s`,
+                  animationDuration: `${1.5 + Math.random() * 1}s`,
+                  transform: `rotate(${Math.random() * 360}deg)`,
+                }}
+              >
+                💖
+              </div>
+            ))}
+            
+            {/* Flower explosion */}
+            {Array.from({ length: 12 }).map((_, i) => (
+              <div
+                key={`flower-${i}`}
+                className="absolute animate-ping text-xl"
+                style={{
+                  top: `${25 + Math.random() * 50}%`,
+                  left: `${25 + Math.random() * 50}%`,
+                  animationDelay: `${Math.random() * 1}s`,
+                  animationDuration: `${1 + Math.random() * 0.8}s`,
+                }}
+              >
+                🌸
+              </div>
+            ))}
+            
+            {/* Sparkle explosion */}
+            {Array.from({ length: 20 }).map((_, i) => (
+              <div
+                key={`sparkle-${i}`}
+                className="absolute animate-pulse text-lg"
+                style={{
+                  top: `${20 + Math.random() * 60}%`,
+                  left: `${20 + Math.random() * 60}%`,
+                  animationDelay: `${Math.random() * 1.2}s`,
+                  animationDuration: `${0.8 + Math.random() * 0.7}s`,
+                }}
+              >
+                ✨
+              </div>
+            ))}
+            
+            {/* Rainbow confetti */}
+            {Array.from({ length: 25 }).map((_, i) => (
+              <div
+                key={`rainbow-${i}`}
+                className="absolute animate-bounce"
+                style={{
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 1.5}s`,
+                  animationDuration: `${1.2 + Math.random() * 1.3}s`,
+                }}
+              >
+                <div className={`w-3 h-3 ${['bg-pink-400', 'bg-purple-400', 'bg-blue-400', 'bg-green-400', 'bg-yellow-400', 'bg-orange-400'][Math.floor(Math.random() * 6)]} rounded-full shadow-lg`}></div>
+              </div>
+            ))}
+            
+            {/* Celebration text */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+              <div className="animate-bounce text-4xl font-bold text-white mb-2" style={{ animationDuration: '0.8s' }}>
+                🎉 HAPPY JULY 12TH! 🎉
+              </div>
+              <div className="animate-pulse text-xl text-yellow-300 font-semibold">
+                Your special day is here! 💕
+              </div>
+            </div>
+            
+            {/* Floating balloons */}
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div
+                key={`balloon-${i}`}
+                className="absolute animate-float text-3xl"
+                style={{
+                  top: `${60 + Math.random() * 30}%`,
+                  left: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 2}s`,
+                  animationDuration: `${3 + Math.random() * 2}s`,
+                }}
+              >
+                {['🎈', '🎀', '🌟', '💝'][Math.floor(Math.random() * 4)]}
+              </div>
+            ))}
+            
+            {/* Gentle glow effect */}
+            <div className="absolute inset-0 bg-gradient-radial from-yellow-200/30 via-pink-200/20 to-transparent animate-pulse" />
           </div>
         )}
 
@@ -397,10 +502,24 @@ export const VirtualCakeBuilder: React.FC<CakeBuilderProps> = ({ isCountdownExpi
 
               {isCountdownExpired && showFireworks && (
                 <div className="mt-4 text-center">
-                  <p className="text-2xl font-bold text-yellow-300 animate-pulse">
-                    🎉 Happy July 12th! 🎉
-                  </p>
-                  <p className="text-white/80 text-sm mt-2">Your cake is ready to celebrate!</p>
+                  {isJuly12th() ? (
+                    <div className="space-y-2">
+                      <p className="text-3xl font-bold text-yellow-300 animate-bounce">
+                        🎂 CAKE CELEBRATION! 🎂
+                      </p>
+                      <p className="text-xl text-pink-300 animate-pulse">
+                        Your special cake exploded with love! 💖
+                      </p>
+                      <p className="text-white/80 text-sm mt-2">The most wholesome explosion ever! 🌸✨</p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p className="text-2xl font-bold text-yellow-300 animate-pulse">
+                        🎉 Happy July 12th! 🎉
+                      </p>
+                      <p className="text-white/80 text-sm mt-2">Your cake is ready to celebrate!</p>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
