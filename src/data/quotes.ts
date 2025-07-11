@@ -6,6 +6,6 @@ export const dailyQuotes = [
 ];
 
 export const getDailyQuote = (): string => {
-  // Always return the first quote (now showing tomorrow's quote)
+  // Always return the first quote (today's): "You've made my laugh louder, my smile brighter, and my heart lighter—thank you for being you."
   return dailyQuotes[0];
 };
