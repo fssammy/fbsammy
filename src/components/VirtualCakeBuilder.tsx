@@ -88,8 +88,8 @@ export const VirtualCakeBuilder: React.FC<CakeBuilderProps> = ({ isCountdownExpi
 
   // Check if it's July 12th for special explosion
   const isJuly12th = () => {
-    const today = new Date();
-    return today.getMonth() === 6 && today.getDate() === 12; // July is month 6 (0-indexed)
+    // Temporarily return true to preview tomorrow's explosion
+    return true;
   };
 
   const selectedBase = cakeBases.find(b => b.id === cake.base);
