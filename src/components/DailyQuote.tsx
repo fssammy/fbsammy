@@ -3,7 +3,7 @@ import { Heart, Sparkles } from 'lucide-react';
 import { getDailyQuote } from '../data/quotes';
 
 export const DailyQuote: React.FC = () => {
-  const [isRevealed, setIsRevealed] = useState(false);
+  const [isRevealed, setIsRevealed] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
   const quote = getDailyQuote();
 
