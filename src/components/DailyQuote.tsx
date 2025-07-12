@@ -43,7 +43,7 @@ export const DailyQuote: React.FC = () => {
           </p>
         </div>
       ) : (
-        <div className="quote-reveal bg-white/10 backdrop-blur-lg rounded-3xl p-6 md:p-8 border border-white/20 shadow-2xl">
+        <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-6 md:p-8 border border-white/20 shadow-2xl opacity-100">
           <div className="text-center">
             <div className="flex justify-center mb-4">
               <div className="bg-gradient-to-r from-pink-400 to-purple-400 p-3 rounded-full">
