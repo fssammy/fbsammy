@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { PenTool, Search, Filter, Users, MessageSquare, Heart, Calendar } from 'lucide-react';
+import { PenTool, Search, Filter, Users, MessageSquare, Heart, Calendar, Database, Wifi, WifiOff } from 'lucide-react';
 import { useBlog } from '../hooks/useBlog';
 import { BlogPost } from './BlogPost';
 import { CreatePostForm } from './CreatePostForm';
 
 export const BlogFeed: React.FC = () => {
-  const { posts, loading } = useBlog();
+  const { posts, loading, isUsingSupabase } = useBlog();
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedMood, setSelectedMood] = useState<string>('all');
@@ -70,8 +70,31 @@ export const BlogFeed: React.FC = () => {
             <span className="text-sm md:text-base">{totalLikes} likes</span>
           </div>
           <div className="flex items-center space-x-2">
-            <Calendar className="w-5 h-5" />
-            <span className="text-sm md:text-base">Community Blog</span>
+            {isUsingSupabase ? <Database className="w-5 h-5" /> : <Wifi className="w-5 h-5" />}
+            <span className="text-sm md:text-base">
+              {isUsingSupabase ? 'Global Community' : 'Local Posts'}
+            </span>
+          </div>
+        </div>
+        
+        {/* Connection Status */}
+        <div className="mt-4 text-center">
+          <div className={`inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs ${
+            isUsingSupabase 
+              ? 'bg-green-500/20 text-green-300 border border-green-500/30'
+              : 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30'
+          }`}>
+            {isUsingSupabase ? (
+              <>
+                <Wifi className="w-3 h-3" />
+                <span>Connected - Posts visible to all visitors worldwide</span>
+              </>
+            ) : (
+              <>
+                <WifiOff className="w-3 h-3" />
+                <span>Local mode - Posts only visible on this device</span>
+              </>
+            )}
           </div>
         </div>
       </div>
