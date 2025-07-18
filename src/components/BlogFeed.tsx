@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { PenTool, Search, Filter, Users, MessageSquare, Heart, Calendar, Database, Wifi, WifiOff } from 'lucide-react';
+import { PenTool, Search, Filter, Users, MessageSquare, Heart, Calendar, Database, Wifi, WifiOff, Settings, Mail } from 'lucide-react';
 import { useBlog } from '../hooks/useBlog';
+import { useUser } from '../hooks/useUser';
 import { BlogPost } from './BlogPost';
 import { CreatePostForm } from './CreatePostForm';
+import { NotificationSettings } from './NotificationSettings';
 
 export const BlogFeed: React.FC = () => {
-  const { posts, loading, isUsingSupabase } = useBlog();
+  const { posts, loading, isUsingSupabase, sendingNotifications } = useBlog();
+  const { currentUser } = useUser();
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedMood, setSelectedMood] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'newest' | 'popular'>('newest');
@@ -47,6 +51,18 @@ export const BlogFeed: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
+      {/* User Settings Button */}
+      {currentUser && (
+        <div className="fixed top-6 left-6 z-20">
+          <button
+            onClick={() => setShowSettings(true)}
+            className="group relative overflow-hidden bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-3 rounded-full border border-white/20 shadow-lg transition-all duration-300 hover:scale-105"
+          >
+            <Settings className="w-5 h-5" />
+          </button>
+        </div>
+      )}
+
       {/* Blog Header */}
       <div className="text-center mb-8">
         <div className="flex items-center justify-center mb-4">
@@ -76,6 +92,16 @@ export const BlogFeed: React.FC = () => {
             </span>
           </div>
         </div>
+        
+        {/* Notification Status */}
+        {sendingNotifications && (
+          <div className="mt-2 text-center">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs">
+              <Mail className="w-3 h-3 animate-pulse" />
+              <span>Sending notifications...</span>
+            </div>
+          </div>
+        )}
         
         {/* Connection Status */}
         <div className="mt-4 text-center">
@@ -197,6 +223,12 @@ export const BlogFeed: React.FC = () => {
       {showCreateForm && (
         <CreatePostForm onClose={() => setShowCreateForm(false)} />
       )}
+
+      {/* Notification Settings Modal */}
+      <NotificationSettings 
+        isOpen={showSettings} 
+        onClose={() => setShowSettings(false)} 
+      />
     </div>
   );
 };

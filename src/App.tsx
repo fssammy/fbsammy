@@ -1,13 +1,28 @@
 import React from 'react';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
+import { useUser } from './hooks/useUser';
 import { ThemeToggle } from './components/ThemeToggle';
 import { CoralReefBackground } from './components/CoralReefBackground';
 import { FloatingElements } from './components/FloatingElements';
 import { DynamicBackground } from './components/DynamicBackground';
 import { BlogFeed } from './components/BlogFeed';
+import { UserRegistration } from './components/UserRegistration';
 
 function AppContent() {
   const { theme, isTransitioning } = useTheme();
+  const { currentUser, showRegistration, loading, registerUser } = useUser();
+
+  // Show loading screen while checking user session
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-purple-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-white/70">Loading July 12th Blog...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -115,6 +130,11 @@ function AppContent() {
           <BlogFeed />
         </div>
       </div>
+
+      {/* User Registration Modal */}
+      {showRegistration && (
+        <UserRegistration onRegister={registerUser} />
+      )}
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { BlogPost, BlogComment } from '../types/blog';
+import { useUser } from './useUser';
+import { EmailService } from '../services/emailService';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -90,8 +92,11 @@ export const useBlog = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [comments, setComments] = useState<BlogComment[]>([]);
   const [loading, setLoading] = useState(true);
+  const [sendingNotifications, setSendingNotifications] = useState(false);
   const userId = getUserId();
   const supabase = createSupabaseClient();
+  const { getSubscribedUsers } = useUser();
+  const emailService = EmailService.getInstance();
 
   // Load posts and comments
   useEffect(() => {
@@ -184,6 +189,27 @@ export const useBlog = () => {
       mood
     };
 
+    // Send email notifications to subscribed users
+    const subscribedUsers = getSubscribedUsers();
+    if (subscribedUsers.length > 0) {
+      setSendingNotifications(true);
+      try {
+        const results = await emailService.sendNewPostNotification(
+          subscribedUsers,
+          newPost,
+          window.location.origin
+        );
+        
+        console.log(`📧 Notification results: ${results.success} sent, ${results.failed} failed`);
+        if (results.errors.length > 0) {
+          console.error('Email errors:', results.errors);
+        }
+      } catch (error) {
+        console.error('Error sending notifications:', error);
+      } finally {
+        setSendingNotifications(false);
+      }
+    }
     if (supabase) {
       try {
         const { error } = await supabase.from('blog_posts').insert({
@@ -380,6 +406,7 @@ export const useBlog = () => {
     posts: posts.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime()),
     comments,
     loading,
+    sendingNotifications,
     userId,
     createPost,
     togglePostLike,
