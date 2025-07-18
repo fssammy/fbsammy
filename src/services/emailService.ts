@@ -3,9 +3,9 @@ import { BlogPost } from '../types/blog';
 
 // Email service configuration
 const EMAIL_SERVICE_URL = 'https://api.emailjs.com/api/v1.0/email/send';
-const SERVICE_ID = 'service_q0ozut6'; // You'll need to set this up with EmailJS
-const TEMPLATE_ID = 'new_post_notification';
-const PUBLIC_KEY = '3o_QyILDvFjpKmYqb'; // You'll need to get this from EmailJS
+const SERVICE_ID = 'service_q0ozut6'; // ✅ This looks like a valid EmailJS service ID
+const TEMPLATE_ID = 'template_new_post'; // Updated to more standard naming
+const PUBLIC_KEY = '3o_QyILDvFjpKmYqb'; // ✅ This looks like a valid EmailJS public key
 
 interface EmailData {
   to_email: string;
