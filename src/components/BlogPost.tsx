@@ -35,6 +35,7 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   const canDelete = post.likedBy.includes(userId); // Simple ownership check
 
   const handleLike = () => {
+    console.log('Heart button clicked for post:', post.id);
     togglePostLike(post.id);
   };
 
