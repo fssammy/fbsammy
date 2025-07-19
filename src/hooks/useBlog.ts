@@ -296,6 +296,36 @@ export const useBlog = () => {
       likedBy: []
     };
 
+    // Send email notifications to subscribed users for new comments
+    const subscribedUsers = getSubscribedUsers();
+    const post = posts.find(p => p.id === postId);
+    if (subscribedUsers.length > 0 && post) {
+      setSendingNotifications(true);
+      try {
+        // Create a temporary post object for the comment notification
+        const commentNotificationPost: BlogPost = {
+          ...post,
+          title: `New comment on: ${post.title}`,
+          content: `${newComment.author} commented: ${newComment.content}`,
+          author: newComment.author
+        };
+        
+        const results = await emailService.sendNewPostNotification(
+          subscribedUsers,
+          commentNotificationPost,
+          window.location.origin
+        );
+        
+        console.log(`📧 Comment notification results: ${results.success} sent, ${results.failed} failed`);
+        if (results.errors.length > 0) {
+          console.error('Email errors:', results.errors);
+        }
+      } catch (error) {
+        console.error('Error sending comment notifications:', error);
+      } finally {
+        setSendingNotifications(false);
+      }
+    }
     if (supabase) {
       try {
         const { error } = await supabase.from('blog_comments').insert({

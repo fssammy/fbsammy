@@ -23,7 +23,13 @@ export class EmailService {
 
   private constructor() {
     // Check if EmailJS is configured
-    this.isConfigured = !!(SERVICE_ID && TEMPLATE_ID && PUBLIC_KEY && PUBLIC_KEY !== 'your_emailjs_public_key');
+    this.isConfigured = !!(SERVICE_ID && TEMPLATE_ID && PUBLIC_KEY);
+    
+    if (this.isConfigured) {
+      console.log('✅ EmailJS is configured and ready to send emails');
+    } else {
+      console.log('⚠️ EmailJS not configured - will simulate email sending');
+    }
   }
 
   public static getInstance(): EmailService {
